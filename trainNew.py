@@ -31,9 +31,7 @@ from torch.cuda import amp
 from torch.nn.parallel import DistributedDataParallel as DDP
 from torch.optim import SGD, Adam, AdamW, lr_scheduler
 from tqdm import tqdm
-
 import warnings
-warnings.warn('User provided device_type of \'cuda\', but CUDA is not available. Disabling')
 
 FILE = Path(__file__).resolve()
 ROOT = FILE.parents[0]  # YOLOv5 root directory
@@ -142,6 +140,7 @@ def train(hyp,  # path/to/hyp.yaml or hyp dictionary
             v.requires_grad = False
 
     # Image size
+    warnings.warn('User provided device_type of \'cuda\', but CUDA is not available. Disabling')
     gs = max(int(model.stride.max()), 32)  # grid size (max stride)
     imgsz = check_img_size(opt.imgsz, gs, floor=gs * 2)  # verify imgsz is gs-multiple
 
